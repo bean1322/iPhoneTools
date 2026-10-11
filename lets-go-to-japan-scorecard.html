@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Let's Go! To Japan – Score Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #e8edf2;
+    --card: #ffffff;
+    --ink: #1a2240;
+    --ink-soft: #667089;
+    --line: #e3e8ee;
+    --band: #f3f6f9;
+    --field: #f6f8fb;
+    --sun: #d63a2f;
+    --gold-bg: #fff4d9;
+    --gold: #b77b00;
+    --neg: #c0372d;
+    --shadow: 0 1px 2px rgba(26,34,64,.06), 0 12px 32px -12px rgba(26,34,64,.22);
+    --serif: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
+    --sans: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --p0: #2f5d9e; --p1: #d1517f; --p2: #2f8a64; --p3: #d08a1c; --p4: #7a4fa0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1424; --card: #1a2140; --ink: #eef0f8; --ink-soft: #98a1c0;
+      --line: #2a3358; --band: #212a4d; --field: #131a33;
+      --gold-bg: #3a3118; --gold: #f0c15a; --neg: #ff8a80;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -12px rgba(0,0,0,.6);
+      --p0: #6fa2e6; --p1: #f08bb0; --p2: #5cc297; --p3: #f0b44f; --p4: #b48be0;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-padding-top: 9rem; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--sans); font-size: 16px; line-height: 1.45;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 12px 12px 56px; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative; overflow: hidden; border-radius: 20px;
+    background-color: #1a2347; color: #fff;
+    padding: 26px 24px 24px; margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    background-image:
+      radial-gradient(circle at 50% 100%, transparent 0 24%, rgba(255,255,255,.10) 24% 27%, transparent 27% 42%, rgba(255,255,255,.10) 42% 45%, transparent 45% 60%, rgba(255,255,255,.10) 60% 63%, transparent 63%),
+      radial-gradient(circle at 50% 100%, transparent 0 24%, rgba(255,255,255,.10) 24% 27%, transparent 27% 42%, rgba(255,255,255,.10) 42% 45%, transparent 45% 60%, rgba(255,255,255,.10) 60% 63%, transparent 63%);
+    background-size: 56px 28px, 56px 28px;
+    background-position: 0 0, 28px 14px;
+  }
+  .hero::after {
+    content: ""; position: absolute; right: -34px; top: -34px;
+    width: 150px; height: 150px; border-radius: 50%;
+    background: var(--sun); opacity: .95;
+  }
+  .hero-inner { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; justify-content: space-between; }
+  h1 {
+    font-family: var(--serif); font-weight: 800; margin: 0;
+    font-size: clamp(1.7rem, 6vw, 2.6rem); line-height: 1.05; letter-spacing: .01em;
+  }
+  .sub { margin: 8px 0 0; color: rgba(255,255,255,.72); font-size: .95rem; }
+  .tools { display: flex; gap: 8px; flex-wrap: wrap; }
+  button {
+    font: 500 .92rem var(--sans); cursor: pointer; border-radius: 999px;
+    padding: 9px 16px; border: 1px solid rgba(255,255,255,.35);
+    background: rgba(255,255,255,.10); color: #fff;
+    backdrop-filter: blur(4px);
+  }
+  button:hover:not(:disabled) { background: rgba(255,255,255,.2); }
+  button.primary { background: #fff; color: #1a2347; border-color: #fff; font-weight: 700; }
+  button.primary:hover:not(:disabled) { background: #f0f3fa; }
+  button:disabled { opacity: .4; cursor: not-allowed; }
+  button:focus-visible, input:focus-visible { outline: 3px solid #7fb0ff; outline-offset: 2px; }
+
+  /* ---------- Banner ---------- */
+  .banner {
+    display: none; align-items: center; gap: 10px;
+    margin: 0 0 16px; padding: 12px 16px; border-radius: 14px;
+    background: var(--gold-bg); color: var(--ink); font-weight: 500;
+    box-shadow: var(--shadow);
+  }
+  .banner.show { display: flex; }
+  .banner::before {
+    content: ""; flex: none; width: 12px; height: 12px; border-radius: 50%;
+    background: var(--gold); box-shadow: 0 0 0 4px color-mix(in srgb, var(--gold) 25%, transparent);
+  }
+
+  /* ---------- Table ---------- */
+  table {
+    width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0;
+    background: var(--card); border-radius: 20px; box-shadow: var(--shadow);
+  }
+  th, td { padding: 0; }
+  col.label { width: 30%; }
+  td.label { padding: 10px 16px; text-align: left; font-weight: 500; }
+  td.label small { display: block; color: var(--ink-soft); font-size: .75rem; font-weight: 400; }
+
+  thead th {
+    position: sticky; top: 0; z-index: 5; background: var(--card);
+    padding: 12px 6px 10px; text-align: center; vertical-align: top;
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 10px 14px -12px rgba(26,34,64,.35);
+  }
+  thead th:first-child { border-top-left-radius: 20px; }
+  thead th:last-child { border-top-right-radius: 20px; }
+  thead th.corner { text-align: left; padding-left: 16px; vertical-align: bottom; color: var(--ink-soft); font-weight: 500; font-size: .85rem; }
+  thead th[data-head]::before {
+    content: ""; position: absolute; left: 10px; right: 10px; top: 0; height: 5px;
+    background: var(--pc); border-radius: 0 0 6px 6px;
+  }
+  .pname {
+    width: 100%; border: 0; background: transparent; color: var(--ink);
+    font: 700 1rem var(--sans); text-align: center; padding: 4px 2px; border-radius: 8px; min-width: 0;
+  }
+  .pname:hover { background: var(--field); }
+  .ptotal {
+    font-family: var(--serif); font-weight: 800; font-size: 2rem; line-height: 1.05;
+    text-align: center; color: var(--pc); margin-top: 2px;
+  }
+  .prank {
+    display: inline-block; min-height: 1.4em; margin-top: 4px; padding: 1px 10px;
+    font-size: .74rem; font-weight: 700; border-radius: 999px; color: var(--ink-soft);
+  }
+  .prank:empty { padding: 0; }
+  th.lead .prank { background: var(--gold-bg); color: var(--gold); }
+
+  tr.section td {
+    background: var(--band); padding: 11px 16px 10px;
+    font-family: var(--serif); font-weight: 800; font-size: 1rem;
+    border-top: 1px solid var(--line);
+  }
+  tr.section td.sec-title small { display: block; font: 400 .74rem var(--sans); color: var(--ink-soft); margin-top: 1px; }
+  tr.section td.sub-cell {
+    text-align: center; padding: 8px 2px; font: 700 .95rem var(--sans); color: var(--ink-soft);
+    vertical-align: middle;
+  }
+  tr.section td.sub-cell span {
+    display: inline-block; min-width: 2.4em; padding: 2px 8px; border-radius: 999px;
+    background: var(--card);
+  }
+
+  td.cell { padding: 5px 5px; text-align: center; border-top: 1px solid var(--line); }
+  td.label { border-top: 1px solid var(--line); }
+  tr.section + tr td { border-top: 0; }
+  td.cell input {
+    width: 100%; max-width: 84px; height: 44px; text-align: center;
+    font: 500 1.05rem var(--sans); color: var(--ink);
+    background: var(--field); border: 1.5px solid transparent; border-radius: 12px;
+    padding: 0 2px; -moz-appearance: textfield; transition: border-color .15s, background .15s;
+  }
+  td.cell input:hover { border-color: var(--line); }
+  td.cell input:focus { background: var(--card); border-color: var(--pc); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--pc) 25%, transparent); }
+  td.cell input::-webkit-outer-spin-button, td.cell input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  td.cell .calc { display: block; font-size: .72rem; color: var(--ink-soft); min-height: 1em; margin-top: 1px; }
+
+  tr.total td { border-top: 0; }
+  tr.total td.label {
+    background: var(--ink); color: var(--card); font-family: var(--serif); font-weight: 800;
+    font-size: 1.1rem; padding: 16px; border-bottom-left-radius: 20px;
+  }
+  tr.total td.cell {
+    background: var(--ink); color: #fff; font-family: var(--serif); font-weight: 800;
+    font-size: 1.6rem; padding: 12px 2px; position: relative;
+  }
+  tr.total td.cell::before {
+    content: ""; position: absolute; left: 18%; right: 18%; top: 0; height: 4px;
+    background: var(--pc); border-radius: 0 0 4px 4px;
+  }
+  tr.total td.cell:last-child { border-bottom-right-radius: 20px; }
+  @media (prefers-color-scheme: dark) {
+    tr.total td.label, tr.total td.cell { background: #0b1020; color: #fff; }
+  }
+
+  .neg { color: var(--neg) !important; }
+  tr.total .neg { color: #ffb4ab !important; }
+
+  .notes { margin: 18px 8px 0; color: var(--ink-soft); font-size: .85rem; max-width: 68ch; }
+
+  @media (max-width: 560px) {
+    .wrap { padding: 8px 8px 40px; }
+    .hero { padding: 20px 16px; border-radius: 16px; }
+    .hero::after { width: 110px; height: 110px; right: -30px; top: -30px; }
+    table { border-radius: 16px; }
+    col.label { width: 27%; }
+    td.label { padding: 8px 8px; font-size: .85rem; }
+    tr.section td { padding-left: 10px; }
+    thead th.corner { padding-left: 8px; }
+    .pname { font-size: .82rem; }
+    .ptotal { font-size: 1.45rem; }
+    .prank { font-size: .66rem; padding: 1px 6px; }
+    td.cell { padding: 4px 3px; }
+    td.cell input { font-size: 16px; height: 42px; border-radius: 10px; }
+    tr.total td.cell { font-size: 1.2rem; }
+    tr.total td.label { padding: 12px 8px; }
+  }
+  @media print {
+    :root { --bg: #fff; }
+    .tools, .banner { display: none !important; }
+    .hero { box-shadow: none; }
+    table { box-shadow: none; border: 1px solid #ccc; }
+    thead th { position: static; box-shadow: none; }
+    td.cell input { background: transparent; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <h1>Let's Go! To Japan</h1>
+        <p class="sub">Score card for 2 to 5 travelers</p>
+      </div>
+      <div class="tools">
+        <button id="addBtn" type="button" class="primary">Add player</button>
+        <button id="removeBtn" type="button">Remove player</button>
+        <button id="clearBtn" type="button">Clear scores</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="banner" id="banner" role="status" aria-live="polite"></div>
+
+  <table id="sheet" aria-label="Score card"></table>
+
+  <p class="notes">
+    Totals update as you type, and your entries are saved in this browser. Enter whole numbers and use a minus sign for
+    penalties. For trains, enter how many of each you placed. The starting train is free.
+  </p>
+</div>
+
+<script>
+(function () {
+  var MIN = 2, MAX = 5;
+  var STORE = "lgtj-scorecard-v1";
+
+  var SECTIONS = [
+    { id: "exp", title: "Experience tracks", note: "Points for the highest line each token passed",
+      rows: [1,2,3,4,5].map(function (n) { return { key: "exp" + n, label: "Experience " + n }; }) },
+    { id: "cards", title: "Activity cards", note: "Points in the upper right of your cards",
+      rows: [{ key: "cards", label: "Card points" }] },
+    { id: "days", title: "Daily highlights", note: "Scoring on the top card of each day",
+      rows: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"].map(function (d, i) { return { key: "day" + (i+1), label: d }; }) },
+    { id: "mood", title: "Mood", note: "Happy and stressed ends of the track",
+      rows: [{ key: "mood", label: "Mood points" }] },
+    { id: "research", title: "Research tokens", note: "Points from leftover tokens",
+      rows: [{ key: "research", label: "Research points" }] },
+    { id: "trains", title: "Trains", note: "One for each Tokyo–Kyoto trip",
+      rows: [
+        { key: "trainReg", label: "Regular trains", hint: "−2 each", mult: -2, count: true },
+        { key: "trainLux", label: "Luxury trains", hint: "+2 each", mult: 2, count: true }
+      ] }
+  ];
+
+  var state = load() || { players: [blank("Player 1"), blank("Player 2")] };
+
+  function blank(name) { return { name: name, v: {} }; }
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(STORE);
+      if (!raw) return null;
+      var s = JSON.parse(raw);
+      if (s && Array.isArray(s.players) && s.players.length >= MIN && s.players.length <= MAX) return s;
+    } catch (e) {}
+    return null;
+  }
+  function save() {
+    try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) {}
+  }
+
+  function num(p, row) {
+    var n = parseInt(state.players[p].v[row.key], 10);
+    return isNaN(n) ? 0 : n;
+  }
+  function rowPoints(p, row) { return num(p, row) * (row.mult || 1); }
+  function sectionTotal(p, sec) {
+    return sec.rows.reduce(function (a, r) { return a + rowPoints(p, r); }, 0);
+  }
+  function grandTotal(p) {
+    return SECTIONS.reduce(function (a, s) { return a + sectionTotal(p, s); }, 0);
+  }
+  function fmt(n) { return String(n).replace("-", "\u2212"); }
+
+  var sheet = document.getElementById("sheet");
+
+  function pc(p) { return "style='--pc:var(--p" + p + ")'"; }
+
+  function build() {
+    var n = state.players.length;
+    var h = "<colgroup><col class='label'>";
+    for (var i = 0; i < n; i++) h += "<col>";
+    h += "</colgroup><thead><tr><th class='corner' scope='col'>Category</th>";
+    state.players.forEach(function (pl, p) {
+      h += "<th scope='col' data-head='" + p + "' " + pc(p) + ">" +
+        "<input class='pname' data-name='" + p + "' value='" + esc(pl.name) + "' aria-label='Player " + (p+1) + " name' maxlength='16'>" +
+        "<div class='ptotal' data-ptotal='" + p + "'>0</div>" +
+        "<div class='prank' data-prank='" + p + "'></div></th>";
+    });
+    h += "</tr></thead><tbody>";
+
+    SECTIONS.forEach(function (sec) {
+      h += "<tr class='section'><td class='sec-title'>" + sec.title + "<small>" + sec.note + "</small></td>";
+      for (var p = 0; p < n; p++) h += "<td class='sub-cell'><span data-sub='" + sec.id + "-" + p + "'>0</span></td>";
+      h += "</tr>";
+      sec.rows.forEach(function (row) {
+        h += "<tr><td class='label'>" + row.label + (row.hint ? "<small>" + row.hint + "</small>" : "") + "</td>";
+        for (var p = 0; p < n; p++) {
+          var val = state.players[p].v[row.key];
+          h += "<td class='cell' " + pc(p) + ">" +
+            "<input type='number' inputmode='numeric' step='1' data-p='" + p + "' data-k='" + row.key + "' value='" + (val === undefined ? "" : esc(val)) + "' " +
+            "aria-label='" + esc(state.players[p].name) + ": " + row.label + "'>" +
+            (row.count ? "<span class='calc' data-calc='" + row.key + "-" + p + "'></span>" : "") +
+            "</td>";
+        }
+        h += "</tr>";
+      });
+    });
+
+    h += "<tr class='total'><td class='label'>Total</td>";
+    for (var q = 0; q < n; q++) h += "<td class='cell' " + pc(q) + " data-gt='" + q + "'>0</td>";
+    h += "</tr></tbody>";
+    sheet.innerHTML = h;
+    update();
+    document.getElementById("addBtn").disabled = n >= MAX;
+    document.getElementById("removeBtn").disabled = n <= MIN;
+  }
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/'/g, "&#39;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+  }
+  function setNeg(el, n) { el.classList.toggle("neg", n < 0); }
+
+  function update() {
+    var n = state.players.length;
+    var totals = [];
+    for (var p = 0; p < n; p++) totals.push(grandTotal(p));
+
+    SECTIONS.forEach(function (sec) {
+      for (var p = 0; p < n; p++) {
+        var el = sheet.querySelector("[data-sub='" + sec.id + "-" + p + "']");
+        var t = sectionTotal(p, sec);
+        el.textContent = fmt(t); setNeg(el, t);
+        sec.rows.forEach(function (row) {
+          if (!row.count) return;
+          var c = sheet.querySelector("[data-calc='" + row.key + "-" + p + "']");
+          if (c) c.textContent = num(p, row) ? "= " + fmt(rowPoints(p, row)) : "";
+        });
+      }
+    });
+
+    var max = Math.max.apply(null, totals);
+    var anyScore = state.players.some(function (pl) {
+      return Object.keys(pl.v).some(function (k) { return pl.v[k] !== "" && pl.v[k] !== undefined; });
+    });
+    var leaders = [];
+
+    for (var q = 0; q < n; q++) {
+      var t = totals[q];
+      var rank = 1 + totals.filter(function (x) { return x > t; }).length;
+      var isLead = anyScore && t === max;
+      if (isLead) leaders.push(q);
+
+      var pt = sheet.querySelector("[data-ptotal='" + q + "']");
+      pt.textContent = fmt(t); setNeg(pt, t);
+      var gt = sheet.querySelector("[data-gt='" + q + "']");
+      gt.textContent = fmt(t); setNeg(gt, t);
+      var pr = sheet.querySelector("[data-prank='" + q + "']");
+      var tied = totals.filter(function (x) { return x === max; }).length > 1;
+      pr.textContent = anyScore ? (isLead ? (tied ? "Tied for 1st" : "1st") : ordinal(rank)) : "";
+      sheet.querySelector("[data-head='" + q + "']").classList.toggle("lead", isLead);
+    }
+
+    var banner = document.getElementById("banner");
+    if (anyScore && leaders.length) {
+      var names = leaders.map(function (i) { return state.players[i].name || ("Player " + (i + 1)); });
+      banner.textContent = leaders.length === 1
+        ? names[0] + " is leading with " + fmt(max) + " points."
+        : names.join(" and ") + " are tied at " + fmt(max) + " points.";
+      banner.classList.add("show");
+    } else banner.classList.remove("show");
+  }
+
+  function ordinal(n) { return ["", "1st", "2nd", "3rd", "4th", "5th"][n] || n + "th"; }
+
+  sheet.addEventListener("input", function (e) {
+    var t = e.target;
+    if (t.dataset.name !== undefined) {
+      state.players[+t.dataset.name].name = t.value;
+    } else if (t.dataset.k) {
+      state.players[+t.dataset.p].v[t.dataset.k] = t.value;
+    } else return;
+    save(); update();
+  });
+
+  document.getElementById("addBtn").addEventListener("click", function () {
+    if (state.players.length >= MAX) return;
+    state.players.push(blank("Player " + (state.players.length + 1)));
+    save(); build();
+  });
+  document.getElementById("removeBtn").addEventListener("click", function () {
+    if (state.players.length <= MIN) return;
+    var last = state.players[state.players.length - 1];
+    var hasData = Object.keys(last.v).some(function (k) { return last.v[k] !== ""; });
+    if (hasData && !confirm("Remove " + last.name + " and their scores?")) return;
+    state.players.pop();
+    save(); build();
+  });
+  document.getElementById("clearBtn").addEventListener("click", function () {
+    if (!confirm("Clear all scores? Player names will be kept.")) return;
+    state.players.forEach(function (pl) { pl.v = {}; });
+    save(); build();
+  });
+
+  build();
+})();
+</script>
+</body>
+</html>

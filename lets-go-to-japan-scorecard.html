@@ -241,19 +241,26 @@
   var STORE = "lgtj-scorecard-v1";
 
   var SECTIONS = [
-    { id: "exp", title: "Experience tracks", note: "Points for the highest line each token passed",
-      rows: [1,2,3,4,5].map(function (n) { return { key: "exp" + n, label: "Experience " + n }; }) },
-    { id: "cards", title: "Activity cards", note: "Points in the upper right of your cards",
-      rows: [{ key: "cards", label: "Card points" }] },
-    { id: "days", title: "Daily highlights", note: "Scoring on the top card of each day",
+    { id: "days", title: "Days", note: "Total each day: the card points plus that day\u2019s highlight bonus",
       rows: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"].map(function (d, i) { return { key: "day" + (i+1), label: d }; }) },
-    { id: "mood", title: "Mood", note: "Happy and stressed ends of the track",
-      rows: [{ key: "mood", label: "Mood points" }] },
+    { id: "exp", title: "Experience tracks", note: "Points for the highest line each token passed",
+      rows: [
+        { key: "expTemples", label: "Temples & Shrines" },
+        { key: "expFood", label: "Food" },
+        { key: "expNature", label: "Nature & Gardens" },
+        { key: "expShopping", label: "Shopping" },
+        { key: "expUnique", label: "Unique Experiences" }
+      ] },
+    { id: "mood", title: "Mood", note: "Points from each end of your mood track",
+      rows: [
+        { key: "moodHappy", label: "Happiness", hint: "Points gained (+)" },
+        { key: "moodStress", label: "Stress", hint: "Points lost (\u2212). Enter as a positive number", neg: true, count: true }
+      ] },
     { id: "research", title: "Research tokens", note: "Points from leftover tokens",
       rows: [{ key: "research", label: "Research points" }] },
-    { id: "trains", title: "Trains", note: "One for each Tokyo–Kyoto trip",
+    { id: "trains", title: "Trains", note: "One for each Tokyo\u2013Kyoto trip",
       rows: [
-        { key: "trainReg", label: "Regular trains", hint: "−2 each", mult: -2, count: true },
+        { key: "trainReg", label: "Regular trains", hint: "\u22122 each", mult: -2, count: true },
         { key: "trainLux", label: "Luxury trains", hint: "+2 each", mult: 2, count: true }
       ] }
   ];
@@ -279,7 +286,11 @@
     var n = parseInt(state.players[p].v[row.key], 10);
     return isNaN(n) ? 0 : n;
   }
-  function rowPoints(p, row) { return num(p, row) * (row.mult || 1); }
+  function rowPoints(p, row) {
+    var n = num(p, row);
+    if (row.neg) return -Math.abs(n);
+    return n * (row.mult || 1);
+  }
   function sectionTotal(p, sec) {
     return sec.rows.reduce(function (a, r) { return a + rowPoints(p, r); }, 0);
   }

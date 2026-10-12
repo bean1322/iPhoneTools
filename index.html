@@ -1,17 +1,53 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Home</title>
+<style>
+:root{--bg:#f3efe7;--ink:#171714;--muted:#6b685f;--card:#fffdf8;--line:#d9d2c5;--accent:#d94c2b;--accent2:#f0b94a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:1050px;margin:auto;padding:28px 20px 60px}
+a{color:inherit}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:18px}
+.brand{font-weight:950;letter-spacing:-.07em;font-size:clamp(25px,4vw,42px)}.brand span{color:var(--accent)}
+.eyebrow{text-transform:uppercase;font-size:11px;letter-spacing:.17em;font-weight:800;color:var(--muted)}
+.intro{padding:32px 0 22px;display:flex;justify-content:space-between;gap:24px;align-items:end}
+.intro h1{font-size:clamp(34px,6vw,64px);line-height:.95;letter-spacing:-.065em;margin:10px 0 12px;max-width:650px}
+.intro p{color:var(--muted);max-width:560px;line-height:1.55;margin:0}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin:12px 0 22px}
+nav{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;font:inherit;font-weight:850;text-decoration:none;border:0;border-radius:999px;padding:13px 20px;cursor:pointer;transition:transform .15s,opacity .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+.btn.primary{background:var(--accent);color:#fff}
+.btn.secondary{background:var(--ink);color:#fff}
+.btn.quiet{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-top:18px}
+@media(max-width:700px){.intro{display:block}.btn{flex:1 1 100%;text-align:center}}
+</style>
 </head>
 <body>
-  <h1>Little Web Tools</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="crate_roulette_discogs.html">Random Album Generator</a>
-    <a href="lets-go-to-japan-scorecard.html">Let's Go! to Japan Scorecard</a>
-  </nav>
+<main>
+  <header class="top">
+    <div class="brand">LITTLE WEB TOOLS</div>
+  </header>
+  <section class="intro">
+    <div>
+      <div class="eyebrow">Pocket-sized helpers</div>
+      <h1>Little Web Tools</h1>
+      <p>Pick a tool to get started.</p>
+    </div>
+  </section>
+  <section class="panel">
+    <nav>
+      <a class="btn quiet" href="index.html">Home</a>
+      <a class="btn primary" href="crate_roulette_discogs.html">Random Album Generator ↻</a>
+      <a class="btn secondary" href="lets-go-to-japan-scorecard.html">Let's Go! to Japan Scorecard →</a>
+    </nav>
+  </section>
+  <div class="footer"><span>iPhone Tools</span><span>Made for use at home.</span></div>
+</main>
 </body>
 </html>

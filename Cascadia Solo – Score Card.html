@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cascadia Solo – Score Card</title>
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f4efe4; --card:#fffdf7; --ink:#1f2a24; --muted:#6b7468; --line:#d9d2bf; --accent:#2f6b4f; --accent-ink:#fff;
+  --mountain:#8a8a8a; --forest:#2e6b3a; --prairie:#d6b743; --wetland:#7a9a74; --river:#3b82b8;
+  --bear:#a0663a; --elk:#7a5a3a; --salmon:#e0735f; --hawk:#5b7fb0; --fox:#d98a2b;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141a16; --card:#1d251f; --ink:#ece8dc; --muted:#98a193; --line:#33403a; --accent:#6fc398; --accent-ink:#0e1a13;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141a16; --card:#1d251f; --ink:#ece8dc; --muted:#98a193; --line:#33403a; --accent:#6fc398; --accent-ink:#0e1a13;
+}
+html{height:auto;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-rounded,"Avenir Next",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.4}
+.wrap{max-width:560px;margin:0 auto;padding:18px 16px 60px}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.top a{color:var(--muted);text-decoration:none}
+.kicker{margin:22px 0 4px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{margin:0;font-size:34px;line-height:1.1;font-family:Georgia,"Times New Roman",serif}
+.sub{margin:6px 0 0;color:var(--muted)}
+.live{margin:16px 0 8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.hero{background:var(--accent);color:var(--accent-ink);border-radius:18px;padding:18px 20px;display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:18px}
+.hero small{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.85}
+.hero .big{font-size:56px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.hero .parts{text-align:right;font-size:13px;opacity:.95;font-variant-numeric:tabular-nums}
+section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px 14px 10px;margin-bottom:16px}
+h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin:12px 0 4px;color:var(--muted);display:flex;justify-content:space-between}
+h2 span{color:var(--ink);font-variant-numeric:tabular-nums}
+.row{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line)}
+.row:first-of-type{border-top:0}
+.dot{width:14px;height:14px;border-radius:50%;flex:none}
+.name{flex:1;font-weight:600}
+.name em{display:block;font-style:normal;font-weight:400;font-size:12px;color:var(--muted)}
+select,input{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 8px}
+select{width:64px}
+input[type=number]{width:76px;text-align:center;font-size:18px;font-weight:700;-moz-appearance:textfield}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
+input:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.bonus{width:46px;text-align:center;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.bonus.on{color:var(--accent)}
+.actions{display:flex;gap:10px;margin-top:6px}
+button{font:inherit;font-weight:700;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:11px 16px;cursor:pointer}
+button:active{background:var(--line)}
+.note{color:var(--muted);font-size:13px;margin-top:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span>Cascadia ✳ Solo</span><a href="https://bean1322.github.io/iPhoneTools/index.html">← Little Web Tools</a></div>
+  <p class="kicker">Mountains → Rivers</p>
+  <h1>Cascadia Solo</h1>
+  <p class="sub">Score card for one ranger</p>
+  <p class="live">Est. totals update as you type</p>
+
+  <div class="hero">
+    <div><small>Total score</small><div class="big" id="total">0</div></div>
+    <div class="parts" id="parts"></div>
+  </div>
+
+  <section>
+    <h2>Wildlife <span id="wTot">0</span></h2>
+    <div id="wild"></div>
+  </section>
+
+  <section>
+    <h2>Habitat corridors <span id="hTot">0</span></h2>
+    <div id="hab"></div>
+    <div class="note" style="margin-top:6px">Enter the tile count of your largest corridor. In solo, a corridor of 7+ earns a +2 bonus automatically.</div>
+  </section>
+
+  <section>
+    <h2>Nature tokens <span id="nTot">0</span></h2>
+    <div class="row">
+      <span class="dot" style="background:var(--prairie)"></span>
+      <div class="name">Unused tokens<em>1 point each</em></div>
+      <input type="number" inputmode="numeric" id="tokens" placeholder="0">
+    </div>
+  </section>
+
+  <div class="actions"><button id="clear">Clear scores</button></div>
+  <p class="note">Totals update as you type, and your entries are saved in this browser. Enter whole numbers; wildlife points are whatever your chosen scoring cards award. Made for the game table.</p>
+</div>
+
+<script>
+(function(){
+  var KEY="cascadia-solo-v1";
+  var animals=[["bear","Bear","var(--bear)"],["elk","Elk","var(--elk)"],["salmon","Salmon","var(--salmon)"],["hawk","Hawk","var(--hawk)"],["fox","Fox","var(--fox)"]];
+  var habs=[["mountain","Mountain","var(--mountain)"],["forest","Forest","var(--forest)"],["prairie","Prairie","var(--prairie)"],["wetland","Wetland","var(--wetland)"],["river","River","var(--river)"]];
+  var state={};
+  try{state=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){state={}}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+  function n(v){var x=parseInt(v,10);return isNaN(x)?0:x}
+  var $=function(id){return document.getElementById(id)};
+
+  var wild=$("wild"), hab=$("hab");
+  animals.forEach(function(a){
+    var r=document.createElement("div");r.className="row";
+    r.innerHTML='<span class="dot" style="background:'+a[2]+'"></span><div class="name">'+a[1]+'<em>Scoring card</em></div>'+
+      '<select data-k="card_'+a[0]+'" aria-label="'+a[1]+' card"><option value="">–</option><option>A</option><option>B</option><option>C</option><option>D</option></select>'+
+      '<input type="number" inputmode="numeric" data-k="w_'+a[0]+'" placeholder="0" aria-label="'+a[1]+' points">';
+    wild.appendChild(r);
+  });
+  habs.forEach(function(h){
+    var r=document.createElement("div");r.className="row";
+    r.innerHTML='<span class="dot" style="background:'+h[2]+'"></span><div class="name">'+h[1]+'<em>Largest corridor</em></div>'+
+      '<span class="bonus" id="b_'+h[0]+'">+0</span>'+
+      '<input type="number" inputmode="numeric" min="0" data-k="h_'+h[0]+'" placeholder="0" aria-label="'+h[1]+' corridor size">';
+    hab.appendChild(r);
+  });
+
+  document.querySelectorAll("[data-k]").forEach(function(el){
+    var k=el.getAttribute("data-k");
+    if(state[k]!==undefined)el.value=state[k];
+    el.addEventListener("input",function(){state[k]=el.value;save();calc()});
+  });
+  $("tokens").value=state.tokens!==undefined?state.tokens:"";
+  $("tokens").addEventListener("input",function(){state.tokens=this.value;save();calc()});
+
+  function calc(){
+    var w=0,h=0,b=0;
+    animals.forEach(function(a){w+=n(state["w_"+a[0]])});
+    habs.forEach(function(x){
+      var s=Math.max(0,n(state["h_"+x[0]]));
+      h+=s;
+      var bon=s>=7?2:0;b+=bon;
+      var el=$("b_"+x[0]);el.textContent="+"+bon;el.className="bonus"+(bon?" on":"");
+    });
+    var t=Math.max(0,n(state.tokens));
+    $("wTot").textContent=w;
+    $("hTot").textContent=(h+b)+(b?" (incl. +"+b+")":"");
+    $("nTot").textContent=t;
+    $("total").textContent=w+h+b+t;
+    $("parts").innerHTML="Wildlife "+w+"<br>Habitats "+(h+b)+"<br>Tokens "+t;
+  }
+  $("clear").addEventListener("click",function(){
+    if(!confirm("Clear all scores?"))return;
+    state={};save();
+    document.querySelectorAll("[data-k],#tokens").forEach(function(el){el.value=""});
+    calc();
+  });
+  calc();
+})();
+</script>
+</body>
+</html>
